@@ -1,6 +1,9 @@
 import telebot
 from googletrans import Translator
 from handlers.commands import Message
+import pytesseract
+from PIL import Image
+import io
 
 
 if __name__ == '__main__':
@@ -20,8 +23,15 @@ if __name__ == '__main__':
 
     @bot.message_handler(content_types=['photo'])
     def handle_photo(message):
-        photo = message.photo[-1]
-        file_info = bot.get_file(photo.file_id)
-        bot.send_message(type(photo), type(file_info))
+        # Получаем файл изображения
+        file_info = bot.get_file(message.photo[-1].file_id)
+        file = bot.download_file(file_info.file_path)
+        # Конвертируем данные в изображение
+        image = Image.open(io.BytesIO(file))
+
+        # Используем Tesseract для распознавания текста
+        text = pytesseract.image_to_string(image, lang='eng')
+
+        message_handler.translate_message(message, text)
 
     bot.infinity_polling(interval=0, timeout=20)

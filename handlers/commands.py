@@ -22,17 +22,22 @@ class Message:
                 'переведёт его на русский язык.'
                 )
 
-    def translate_message(self, message):
+    def translate_message(self, message, str_message=None):
         """Метод, когда человек введёт текст и он его переведёт"""
-        # Определяем язык исходного текста
-        src = detect(message.text)
-
         # Задаем целевой язык
         dest = 'ru'
-
-        # Берем полученное сообщение и переводим его
-        translated_text = self.translator.translate(
-            message.text, src=src, dest=dest
+        # Определяем какой тип данных поступает, если str заполнен то подана картинка
+        if str_message is None:
+            src = detect(message.text)
+            # Берем полученное сообщение и переводим его
+            translated_text = self.translator.translate(
+                message.text, src=src, dest=dest
+            ).text
+        else:
+            src = detect(str_message)
+            # Берем полученное сообщение и переводим его
+            translated_text = self.translator.translate(
+                str_message, src=src, dest=dest
             ).text
         # Отправляем переведенное сообщение
         self.bot.send_message(message.chat.id, translated_text)
