@@ -24,6 +24,7 @@ class Message:
             
     def change_language(self, message):
         self.dest = message.text
+        self.bot.send_message(message.chat.id, "Язык сменён на " + self.dest)
 
     def translate_message(self, message, str_message=None):
         """Метод, когда человек введёт текст и он его переведёт"""
