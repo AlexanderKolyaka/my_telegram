@@ -1,6 +1,7 @@
 import telebot
 from googletrans import Translator
 from handlers.commands import Message
+from language.lang_text import change_languae
 import pytesseract
 from PIL import Image
 import io
@@ -15,8 +16,18 @@ if __name__ == '__main__':
     @bot.message_handler(commands=['start', 'help'])
     def handle_start(message):
         message_handler.start(message)
-    # Обработчик всех сообщений
 
+    @bot.message_handler(commands=['settings'])
+    def handle_settings(message):
+        bot.reply_to(
+                message,
+                change_languae
+                )
+        bot.register_next_step_handler(
+            message, message_handler.change_language
+            )
+
+    # Обработчик всех сообщений
     @bot.message_handler(func=lambda message: True)
     def handle_message(message):
         message_handler.translate_message(message)
