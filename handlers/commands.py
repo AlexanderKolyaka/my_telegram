@@ -1,4 +1,5 @@
 from langdetect import detect
+import language.lang_text as lang_text
 
 
 class Message:
@@ -12,21 +13,20 @@ class Message:
         if message.text == '/start':
             self.bot.reply_to(
                 message,
-                'Привет, это бот переводчик.Нажми /help '
-                'для дополнительной информации.'
+                lang_text.start_text
                 )
         else:
             self.bot.reply_to(
                 message,
-                'Напишите свой текст и нажмите enter, бот '
-                'переведёт его на русский язык.'
+                lang_text.help_text
                 )
 
     def translate_message(self, message, str_message=None):
         """Метод, когда человек введёт текст и он его переведёт"""
         # Задаем целевой язык
         dest = 'ru'
-        # Определяем какой тип данных поступает, если str заполнен то подана картинка
+        # Определяем какой тип данных поступает 
+        # если str заполнен,то подана картинка
         if str_message is None:
             src = detect(message.text)
             # Берем полученное сообщение и переводим его

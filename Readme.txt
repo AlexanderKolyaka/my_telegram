@@ -8,7 +8,7 @@
 На Windows
 
     Убедитесь, что Tesseract установлен:
-        Скачайте и установите Tesseract OCR с официального сайта или с репозитория GitHub: Tesseract OCR для Windows.
+        Скачайте и установите Tesseract OCR с официального сайта или с репозитория GitHub:https://github.com/UB-Mannheim/tesseract/wiki.
         Запустите установщик и следуйте инструкциям.
 
     Добавьте путь к Tesseract в переменную среды PATH:
