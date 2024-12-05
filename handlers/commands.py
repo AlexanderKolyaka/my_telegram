@@ -21,8 +21,9 @@ class Message:
                 message,
                 lang_text.help_text
                 )
-            
+
     def change_language(self, message):
+        """Метод смены языка в переводчике"""
         self.dest = message.text
         self.bot.send_message(message.chat.id, "Язык сменён на " + self.dest)
 
