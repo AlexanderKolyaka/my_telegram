@@ -8,7 +8,7 @@ import io
 
 
 if __name__ == '__main__':
-    bot = telebot.TeleBot('7935793397:AAHmGyLrBbIw9hqap5MgmvQhXuxLhlIPuPY')
+    bot = telebot.TeleBot('TOKEN')
     translator = Translator()
     message_handler = Message(bot, translator)
 
