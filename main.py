@@ -1,27 +1,28 @@
 import telebot
 from googletrans import Translator
 from handlers.commands import Message
-from language.lang_text import change_languae
+from language.lang_text import CHANGE_LANGUAGE
 import pytesseract
 from PIL import Image
 import io
 
 
 if __name__ == '__main__':
-    bot = telebot.TeleBot('TOKEN')
+    bot = telebot.TeleBot('YOUR_TOKEN')
     translator = Translator()
     message_handler = Message(bot, translator)
 
-    # Обработчик команды /start
+    # Обработчик команды /start,/help
     @bot.message_handler(commands=['start', 'help'])
     def handle_start(message):
         message_handler.start(message)
 
+    # Настройка языка, комманда /settings
     @bot.message_handler(commands=['settings'])
     def handle_settings(message):
         bot.reply_to(
                 message,
-                change_languae
+                CHANGE_LANGUAGE
                 )
         bot.register_next_step_handler(
             message, message_handler.change_language
@@ -32,6 +33,7 @@ if __name__ == '__main__':
     def handle_message(message):
         message_handler.translate_message(message)
 
+    # Обработчик фотографий
     @bot.message_handler(content_types=['photo'])
     def handle_photo(message):
         # Получаем файл изображения
